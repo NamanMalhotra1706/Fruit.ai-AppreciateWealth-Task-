@@ -20,7 +20,7 @@ const FAQSection = () => {
     const fetchFaqs = async () => {
       try {
         const response = await fetch(
-          "https://fruits-ai-appreciatewealth-task.onrender.com/faqs"
+          "https://fruit-ai-appreciatewealth-task.onrender.com/faqs"
         );
         const data = await response.json();
         setFaqItems(data);
@@ -41,7 +41,7 @@ const FAQSection = () => {
   const handleConfirmDelete = async () => {
     try {
       const response = await fetch(
-        `https://fruits-ai-appreciatewealth-task.onrender.com/faqs/${deleteId}`,
+        `https://fruit-ai-appreciatewealth-task.onrender.com/faqs/${deleteId}`,
         {
           method: "DELETE",
         }
@@ -89,7 +89,7 @@ const FAQSection = () => {
     e.preventDefault();
     try {
       const response = await fetch(
-        `https://fruits-ai-appreciatewealth-task.onrender.com/faqs/${editItem._id}`,
+        `https://fruit-ai-appreciatewealth-task.onrender.com/faqs/${editItem._id}`,
         {
           method: "PUT",
           headers: {
@@ -153,7 +153,7 @@ const FAQSection = () => {
 
     try {
       const response = await fetch(
-        "https://fruits-ai-appreciatewealth-task.onrender.com/faqs",
+        "https://fruit-ai-appreciatewealth-task.onrender.com/faqs",
         {
           method: "POST",
           headers: {
