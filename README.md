@@ -15,4 +15,4 @@
 
 ### Sample user to login
 email = jane.doe@example.com
-password = jane.doe@example.com
+password = securepassword
