@@ -8,7 +8,7 @@ from flask_jwt_extended import create_access_token, JWTManager
 import datetime
 
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "*"}})
+CORS(app, resources={r"/*": {"origins": ["https://fruit-ai-appreciate-wealth-task.vercel.app"]}})
 
 app.config['JWT_SECRET_KEY'] = 'your_secret_key_here'  # Change this to a secure random key
 jwt = JWTManager(app)
