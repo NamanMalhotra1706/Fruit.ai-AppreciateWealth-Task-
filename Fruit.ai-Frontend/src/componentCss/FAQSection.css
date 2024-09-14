@@ -1,0 +1,230 @@
+/* Base styles for the FAQ section */
+.faq-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center the FAQ cards in the section */
+    padding: 20px;       /* Add padding around the section */
+    background: linear-gradient(135deg, #d4e1f5, #fcc8f8, #baf6da);
+}
+
+.faq-section-title {
+    font-size: 2rem;     /* Larger title for the section */
+    color: #333333;
+    margin-bottom: 20px;
+    text-align: center;  /* Center-align title text */
+}
+
+/* Styles for each FAQ card */
+.faq-card {
+    background-color: #ffffff;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column; /* Stack image, title, and description vertically */
+    align-items: center;    /* Center content */
+    padding: 20px;          /* Internal padding for the card */
+    margin-bottom: 20px;    /* Space between each card */
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    width: 100%;            /* Full width on mobile */
+    max-width: 600px;       /* Max width for larger screens */
+    box-sizing: border-box;
+}
+
+.faq-image img {
+    width: 120px;           /* Image size */
+    height: 120px;
+    border-radius: 15px;
+    margin-bottom: 10px;    /* Space between image and title */
+    padding-top: 10px;      /* Padding above the image */
+}
+
+.faq-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center the text content */
+    text-align: center;
+}
+
+.faq-content h3 {
+    color: #ff4c4c;
+    font-size: 1.5rem;      /* Title size */
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.faq-content p {
+    color: #0066cc;
+    font-size: 1rem;        /* Description text size */
+    line-height: 1.4;
+    margin-top: 0;
+}
+
+/* Media Query for Tablets and Mobile Devices (up to 768px width) */
+@media (max-width: 768px) {
+    .faq-section {
+        padding: 15px;        /* Reduce padding on smaller screens */
+    }
+
+    .faq-section-title {
+        font-size: 1.8rem;    /* Slightly smaller section title */
+    }
+
+    .faq-card {
+        padding: 15px;        /* Adjust internal padding of cards */
+    }
+
+    .faq-image img {
+        width: 90px;          /* Smaller image size */
+        height: 90px;
+        margin-bottom: 10px;  /* Reduced space between image and title */
+    }
+
+    .faq-content h3 {
+        font-size: 1.3rem;    /* Slightly smaller title font for mobile */
+    }
+
+    .faq-content p {
+        font-size: 0.9rem;    /* Adjust text size for readability */
+    }
+}
+
+/* Media Query for Smaller Mobile Devices (up to 480px width) */
+@media (max-width: 480px) {
+    .faq-section {
+        padding: 10px;        /* Less padding on smaller screens */
+    }
+
+    .faq-section-title {
+        font-size: 1.5rem;    /* Smaller section title for small devices */
+    }
+
+    .faq-card {
+        padding: 10px;        /* Reduce padding for cards */
+    }
+
+    .faq-image img {
+        width: 80px;          /* Reduce image size further */
+        height: 80px;
+    }
+
+    .faq-content h3 {
+        font-size: 1.1rem;    /* Smaller title */
+    }
+
+    .faq-content p {
+        font-size: 0.85rem;   /* Smaller text */
+    }
+}
+
+/* Styles for the confirmation dialog */
+.confirm-dialog {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+}
+
+.confirm-dialog p {
+    margin: 0 0 20px;
+    text-align: center;
+}
+
+.confirm-btn, .cancel-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    margin: 0 10px;
+}
+
+.confirm-btn {
+    background-color: #f44336; /* Red */
+    color: white;
+}
+
+.cancel-btn {
+    background-color: #4CAF50; /* Green */
+    color: white;
+}
+
+/* Styles for the edit form */
+.edit-form {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    width: 90%; /* Responsive width for mobile */
+    max-width: 500px;
+}
+
+.edit-form h3 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.edit-form label {
+    display: block;
+    margin-bottom: 15px;
+}
+
+.edit-form input[type="text"],
+.edit-form textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.edit-form textarea {
+    height: 100px;
+    resize: vertical;
+}
+
+/* Adjusting styles for the image input and preview */
+.edit-form input[type="file"] {
+    margin-bottom: 10px; /* Space below the file input */
+}
+
+.edit-form-image-preview {
+    display: block;
+    max-width: 100px; /* Reduced width of the image preview */
+    height: auto;
+    margin: 10px 0;
+    border-radius: 4px;
+    object-fit: cover; /* Ensure image aspect ratio is preserved */
+}
+
+.edit-form .confirm-btn, .edit-form .cancel-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    margin: 10px 5px;
+}
+
+.edit-form .confirm-btn {
+    background-color: #4CAF50; /* Green */
+    color: white;
+}
+
+.edit-form .cancel-btn {
+    background-color: #f44336; /* Red */
+    color: white;
+}
+
+

@@ -1,0 +1,68 @@
+/* Container for the chat UI */
+.chat-container {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    width: 95%;  /* Use percentage to adapt to different screen widths */
+    max-width: 600px;  /* Set a max-width to avoid excessive stretching on large screens */
+    height: 90vh;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    margin: 0 auto; /* Center the container */
+  }
+  
+  /* Container for the messages */
+  .messages-container {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1rem; /* Adjust padding for better responsiveness */
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem; /* Add gap between messages */
+  }
+  
+  /* Individual message styling */
+  .message {
+    background-color: rgba(0, 170, 0, 0.78);
+    color: white;
+    padding: 0.75rem; /* Adjust padding */
+    border-radius: 5px;
+    max-width: 80%; /* Prevent messages from being too wide */
+    align-self: flex-start; /* Align messages to the start */
+  }
+  
+  /* Container for input and send button */
+  .input-container {
+    display: flex;
+    padding: 0.55rem;
+    background-color: #fff;
+    border-top: 1px solid #ddd;
+  }
+  
+  /* Input box styling */
+  .input-box {
+    flex: 1;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem; /* Ensure readability */
+  }
+  
+  /* Send button styling */
+  .send-btn {
+    padding: 0.75rem 1.5rem;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    margin-left: 0.55rem;
+    margin-right: 1rem;
+    cursor: pointer;
+    font-size: 1rem; /* Ensure readability */
+  }
+  
+  /* Button hover effect */
+  .send-btn:hover {
+    background-color: #0056b3;
+  }
+  
