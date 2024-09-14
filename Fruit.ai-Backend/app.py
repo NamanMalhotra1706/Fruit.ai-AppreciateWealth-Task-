@@ -1,4 +1,3 @@
-import os
 from flask import Flask, request, jsonify
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
@@ -8,9 +7,11 @@ from flask_jwt_extended import create_access_token, JWTManager
 import datetime
 
 app = Flask(__name__)
+
+# Configure CORS
 CORS(app, resources={r"/*": {"origins": ["https://fruit-ai-appreciate-wealth-task.vercel.app"]}})
 
-app.config['JWT_SECRET_KEY'] = 'your_secret_key_here'  # Change this to a secure random key
+app.config['JWT_SECRET_KEY'] = 'your_secret_key_here'
 jwt = JWTManager(app)
 
 # Configure MongoDB
@@ -47,7 +48,6 @@ def register_user():
 
     return jsonify({'message': 'User registered successfully'}), 201
 
-
 @app.route('/login', methods=['POST'])
 def login_user():
     data = request.get_json()
@@ -59,9 +59,7 @@ def login_user():
 
     user = mongo.db.users.find_one({'email': email})
     if user and check_password_hash(user['password_hash'], password):
-        # Create JWT token with 30 minutes expiry using create_access_token
         token = create_access_token(identity=email, expires_delta=datetime.timedelta(minutes=30))
-
         return jsonify({'token': token}), 200
     else:
         return jsonify({'message': 'Invalid credentials'}), 401
@@ -126,5 +124,5 @@ def delete_faq(id):
         return jsonify({'message': 'FAQ not found'}), 404
 
 if __name__ == '__main__':
-    port = int(os.environ.get('PORT', 5000))  # Default to port 5000 if PORT environment variable is not set
+    port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port, debug=True)
