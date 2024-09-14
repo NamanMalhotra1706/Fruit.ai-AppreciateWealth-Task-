@@ -5,6 +5,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_cors import CORS
 from flask_jwt_extended import create_access_token, JWTManager
 import datetime
+import os
 
 app = Flask(__name__)
 
