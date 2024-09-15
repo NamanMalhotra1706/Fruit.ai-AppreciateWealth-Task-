@@ -58,6 +58,19 @@
     margin-top: 0;
 }
 
+.add-faq-btn{
+    margin:10px;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    outline: none;
+    flex-grow: 1;
+    background-color: blue; /* Green */
+    color: white;
+}
+
 /* Media Query for Tablets and Mobile Devices (up to 768px width) */
 @media (max-width: 768px) {
     .faq-section {
