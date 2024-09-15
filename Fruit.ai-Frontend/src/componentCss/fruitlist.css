@@ -1,0 +1,117 @@
+/* General Styles for Unified Background */
+.main-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 50vh; /* Half of the screen height */
+    width: 100vw; /* Full width of the viewport */
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  /* Fruit List Styles */
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly; /* Distribute space evenly */
+    width: 100%; /* Full width inside container */
+    gap: 20px; /* Adds space between fruit cards */
+  }
+  
+  .card {
+    width: 220px; /* Set a fixed width for consistency */
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    margin: 10px;
+    cursor: pointer;
+    overflow: hidden;
+    background-color: white; /* Make card background white */
+  }
+  
+  .card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card-img-top {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+  }
+  
+  .card-body {
+    padding: 10px;
+    text-align: center;
+  }
+  
+  /* Chat Styles */
+  .chat-container {
+    width: 100%;
+    max-width: 600px; /* Slightly wider chat box */
+    height: 50vh; /* Same height for consistency */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Matching shadow for consistency */
+  }
+  
+  /* Chat History */
+  .chat-history {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f8f8f8;
+    margin-bottom: 15px;
+  }
+  
+  /* Chat Bubbles */
+  .chat-bubble {
+    max-width: 80%;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 15px;
+    word-wrap: break-word;
+  }
+  
+  .chat-user {
+    background-color: #d4edda;
+    align-self: flex-end;
+  }
+  
+  .chat-bot {
+    background-color: #f0f0f0;
+    align-self: flex-start;
+  }
+  
+  /* Chat Input Area */
+  .input-group {
+    display: flex;
+    gap: 10px;
+  }
+  
+  textarea {
+    flex-grow: 1;
+    border-radius: 8px;
+    padding: 10px;
+    border: 1px solid #ddd;
+  }
+  
+  button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  
+  
+  

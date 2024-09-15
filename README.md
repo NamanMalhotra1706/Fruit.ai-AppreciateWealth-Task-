@@ -6,7 +6,7 @@
 ### Frontend(React)
 1. Login page
 2. Home page
-3. Chatbot page (Pending)
+3. Chatbot page
 4. Translator page
 5. Faq page
 6. About page
