@@ -13,6 +13,13 @@ app = Flask(__name__)
 # Configure CORS
 CORS(app, resources={r"/*": {"origins": ["https://fruit-ai-appreciate-wealth-task.vercel.app"]}})
 
+@app.route('/test', methods=['GET'])
+def test():
+    return jsonify({"message": "CORS is working!"})
+
+
+
+
 app.config['JWT_SECRET_KEY'] = 'your_secret_key_here'
 jwt = JWTManager(app)
 
@@ -168,21 +175,29 @@ def create_faq():
 
 @app.route('/faqs/<id>', methods=['PUT'])
 def update_faq(id):
-    data = request.get_json()
-    faq = mongo.db.faqs.find_one({'_id': ObjectId(id)})
+    try:
+        data = request.get_json()
+        print(f"Updating FAQ with ID: {id} and data: {data}")
+        faq = mongo.db.faqs.find_one({'_id': ObjectId(id)})
+        
+        if not faq:
+            return jsonify({'message': 'FAQ not found'}), 404
+        
+        updated_faq = {
+            'answer': data.get('answer', faq['answer']),
+            'question': data.get('question', faq['question']),
+            'image': data.get('image', faq.get('image', '')),
+            'image_name': data.get('image_name', faq.get('image_name', '')),
+        }
+        
+        mongo.db.faqs.update_one({'_id': ObjectId(id)}, {'$set': updated_faq})
+        
+        return jsonify(serialize_faq(updated_faq)), 200
+    except Exception as e:
+        print(f"Error in update_faq: {e}")
+        return jsonify({'message': 'Internal server error'}), 500
 
-    if not faq:
-        return jsonify({'message': 'FAQ not found'}), 404
-
-    updated_faq = {
-        'question': data.get('question', faq['question']),
-        'answer': data.get('answer', faq['answer']),
-        'image': data.get('image', faq.get('image', '')),
-        'image_name': data.get('image_name', faq.get('image_name', ''))
-    }
-    mongo.db.faqs.update_one({'_id': ObjectId(id)}, {'$set': updated_faq})
-    return jsonify({'message': 'FAQ updated successfully'}), 200
-
+## Delete
 @app.route('/faqs/<id>', methods=['DELETE'])
 def delete_faq(id):
     faq = mongo.db.faqs.find_one({'_id': ObjectId(id)})

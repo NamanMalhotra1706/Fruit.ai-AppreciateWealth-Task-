@@ -6,7 +6,7 @@ const FAQSection = () => {
   const [faqItems, setFaqItems] = useState([]);
   const [showDialog, setShowDialog] = useState(false);
   const [showEditForm, setShowEditForm] = useState(false);
-  const [showAddForm, setShowAddForm] = useState(false); // For adding new FAQ
+  const [showAddForm, setShowAddForm] = useState(false);
   const [deleteId, setDeleteId] = useState(null);
   const [editItem, setEditItem] = useState(null);
   const [newItem, setNewItem] = useState({
@@ -19,9 +19,7 @@ const FAQSection = () => {
   useEffect(() => {
     const fetchFaqs = async () => {
       try {
-        const response = await fetch(
-          "https://fruit-ai-appreciatewealth-task.onrender.com/faqs"
-        );
+        const response = await fetch("https://fruit-ai-appreciatewealth-task.onrender.com/faqs");
         const data = await response.json();
         setFaqItems(data);
       } catch (error) {
@@ -30,7 +28,7 @@ const FAQSection = () => {
     };
 
     fetchFaqs();
-  }, [newItem]);
+  }, [showAddForm, showEditForm]);
 
   // Handle delete
   const handleDeleteClick = (id) => {
@@ -40,15 +38,11 @@ const FAQSection = () => {
 
   const handleConfirmDelete = async () => {
     try {
-      const response = await fetch(
-        `https://fruit-ai-appreciatewealth-task.onrender.com/faqs/${deleteId}`,
-        {
-          method: "DELETE",
-        }
-      );
+      const response = await fetch(`https://fruit-ai-appreciatewealth-task.onrender.com/faqs/${deleteId}`, {
+        method: "DELETE",
+      });
 
       if (response.ok) {
-        // Remove the deleted FAQ from the state
         setFaqItems(faqItems.filter((item) => item._id !== deleteId));
         setShowDialog(false);
       } else {
@@ -61,12 +55,6 @@ const FAQSection = () => {
 
   const handleCancelDelete = () => {
     setShowDialog(false);
-  };
-
-  // Handle edit
-  const handleEditClick = (item) => {
-    setEditItem(item);
-    setShowEditForm(true);
   };
 
   const handleEditChange = (e) => {
@@ -85,36 +73,38 @@ const FAQSection = () => {
     }
   };
 
+  const handleEditClick = (id) => {
+    console.log("Edit ID:", id); // Debugging
+    setEditItem(faqItems.find((item) => item._id === id));
+    console.log(editItem);
+    setShowEditForm(true);
+  };
+
+  // Ensure _id is set before PUT request
   const handleEditSubmit = async (e) => {
     e.preventDefault();
+
+    if (!editItem._id) {
+      console.error("FAQ item ID is missing");
+      return;
+    }
+
     try {
       const response = await fetch(
         `https://fruit-ai-appreciatewealth-task.onrender.com/faqs/${editItem._id}`,
         {
           method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            question: editItem.question,
-            answer: editItem.answer,
-            image: editItem.image,
-            image_name: editItem.image_name,
-          }),
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(editItem),
         }
       );
 
-      if (response.ok) {
-        const updatedFaq = await response.json();
-        setFaqItems(
-          faqItems.map((item) =>
-            item._id === editItem._id ? updatedFaq : item
-          )
-        );
-        setShowEditForm(false);
-      } else {
-        console.error("Failed to update FAQ");
-      }
+      const updatedFaq = await response.json();
+
+      setFaqItems(
+        faqItems.map((item) => (item._id === editItem._id ? updatedFaq : item))
+      );
+      setShowEditForm(false);
     } catch (error) {
       console.error("Error updating FAQ:", error);
     }
@@ -144,50 +134,23 @@ const FAQSection = () => {
   const handleNewSubmit = async (e) => {
     e.preventDefault();
 
-    // Optimistically add the new FAQ to the state
-    const optimisticFaq = {
-      _id: Date.now().toString(), // Temporary ID, replace with real ID after successful creation
-      ...newItem,
-    };
-    setFaqItems((prevFaqItems) => [...prevFaqItems, optimisticFaq]);
-
     try {
-      const response = await fetch(
-        "https://fruit-ai-appreciatewealth-task.onrender.com/faqs",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            question: newItem.question,
-            answer: newItem.answer,
-            image: newItem.image,
-            image_name: newItem.image_name,
-          }),
-        }
-      );
+      const response = await fetch("https://fruit-ai-appreciatewealth-task.onrender.com/faqs", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(newItem),
+      });
 
       if (response.ok) {
         const newFaq = await response.json();
-        setFaqItems((prevFaqItems) =>
-          prevFaqItems.map((item) =>
-            item._id === optimisticFaq._id ? newFaq : item
-          )
-        );
+        setFaqItems([...faqItems, newFaq]);
         setShowAddForm(false);
         setNewItem({ image: "", question: "", answer: "" });
       } else {
         console.error("Failed to create FAQ");
-        setFaqItems((prevFaqItems) =>
-          prevFaqItems.filter((item) => item._id !== optimisticFaq._id)
-        );
       }
     } catch (error) {
       console.error("Error creating FAQ:", error);
-      setFaqItems((prevFaqItems) =>
-        prevFaqItems.filter((item) => item._id !== optimisticFaq._id)
-      );
     }
   };
 
@@ -195,27 +158,24 @@ const FAQSection = () => {
     <div className="faq-section">
       <h2 className="faq-section-title">FAQ Section</h2>
 
-      {/* Button to show add form */}
       <button className="add-faq-btn" onClick={() => setShowAddForm(true)}>
         Add New FAQ
       </button>
 
-      {/* Displaying the FAQ cards */}
       <div className="faq-list">
         {faqItems.map((faq) => (
           <FAQCard
             key={faq._id}
-            id={faq._id} // Pass id to FAQCard
-            image={faq.image || newItem.image}
-            title={faq.question || newItem.question}
-            description={faq.answer || newItem.answer}
-            onDelete={handleDeleteClick} // Pass handleDeleteClick directly
-            onEdit={handleEditClick} // Pass handleEditClick directly
+            id={faq._id}
+            image={faq.image}
+            title={faq.question}
+            description={faq.answer}
+            onDelete={handleDeleteClick}
+            onEdit={handleEditClick}
           />
         ))}
       </div>
 
-      {/* Add new FAQ form */}
       {showAddForm && (
         <div className="edit-form">
           <h3>Add New FAQ Item</h3>
@@ -268,7 +228,6 @@ const FAQSection = () => {
         </div>
       )}
 
-      {/* Confirm delete dialog */}
       {showDialog && (
         <div className="confirm-dialog">
           <p>Are you sure you want to delete this item?</p>
@@ -281,7 +240,6 @@ const FAQSection = () => {
         </div>
       )}
 
-      {/* Edit FAQ form */}
       {showEditForm && (
         <div className="edit-form">
           <h3>Edit FAQ Item</h3>
